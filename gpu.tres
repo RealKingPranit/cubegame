@@ -1,0 +1,41 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://bsy35g21mu603"]
+
+[sub_resource type="Gradient" id="Gradient_7g8ct"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1tdtu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_7g8ct")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_g6svy"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qey5s"]
+curve = SubResource("Curve_g6svy")
+
+[sub_resource type="CurveTexture" id="CurveTexture_eqfs2"]
+
+[sub_resource type="Curve" id="Curve_apvp1"]
+_data = [Vector2(0.24774773, 0.6240602), 0.0, 0.0, 0, 0, Vector2(0.4954955, 0.593985), 0.0, 0.0, 0, 0, Vector2(0.6936937, 0.631579), 0.0, 0.0, 0, 0, Vector2(0.8693693, 0.54135346), 0.0, 0.0, 0, 0, Vector2(1, 0.53383464), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_uu0l2"]
+curve = SubResource("Curve_apvp1")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 200, 1)
+radial_velocity_curve = SubResource("CurveTexture_eqfs2")
+gravity = Vector3(250, 0, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 10.199998
+tangential_accel_curve = SubResource("CurveTexture_uu0l2")
+damping_curve = SubResource("CurveTexture_qey5s")
+color = Color(0.3432717, 0.7834194, 0.8946966, 1)
+color_ramp = SubResource("GradientTexture1D_1tdtu")

@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dn84uflw7iqcg"]
+
+[ext_resource type="PackedScene" uid="uid://55do1l0r7r7s" path="res://player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://d38j0uhhskepm" path="res://main.gd" id="1_r0du0"]
+[ext_resource type="PackedScene" uid="uid://cbirt5w7p3lx0" path="res://floor_chunk.tscn" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://u2r8qr07fqjn" path="res://RuleManager.gd" id="4_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://d282brm7vbcbx" path="res://celling_chunk.tscn" id="4_fos0i"]
+[ext_resource type="Script" uid="uid://die13j05bh7st" path="res://camshake.gd" id="5_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://dak0b7dij0bfw" path="res://Spike.tscn" id="6_lgr22"]
+[ext_resource type="Material" uid="uid://bsy35g21mu603" path="res://gpu.tres" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://d3c1sd0dvbbdy" path="res://gpu_particles_2d.gd" id="9_03owx"]
+[ext_resource type="Script" uid="uid://boel5tob30b26" path="res://hud.gd" id="10_wkp8b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_500h8"]
+size = Vector2(2000, 40)
+
+[sub_resource type="PackedScene" id="PackedScene_lgr22"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("StaticBody2D", "StaticBody2D", "position", "ColorRect", "ColorRect", "offset_left", "offset_top", "offset_right", "offset_bottom", "color", "CollisionShape2D", "CollisionShape2D", "position", "shape"),
+"node_count": 3,
+"node_ids": PackedInt32Array(887077285, 367373895, 1886883151),
+"node_paths": [NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 5, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5, 0, 1073741825, 0, 11, 10, -1, 2, 12, 6, 13, 7, 0),
+"variants": [Vector2(7, -520), -1000.0, -20.0, 1000.0, 20.0, Color(0.947723, 0.8389662, 1, 1), Vector2(0, 2), SubResource("RectangleShape2D_500h8")],
+"version": 3
+}
+
+[node name="Main" type="Node2D" unique_id=1493680377 node_paths=PackedStringArray("player")]
+script = ExtResource("1_r0du0")
+floor_chunk_scene = ExtResource("3_cm0pq")
+ceiling_chunk_scene = SubResource("PackedScene_lgr22")
+spike_scene = ExtResource("6_lgr22")
+player = NodePath("Player")
+
+[node name="Player" parent="." unique_id=2076096996 instance=ExtResource("1_glv2v")]
+position = Vector2(-2, -40)
+
+[node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1154665122]
+offset = Vector2(150, 0)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("5_3dxm6")
+
+[node name="StaticBody2D" parent="." unique_id=887077285 instance=ExtResource("3_cm0pq")]
+
+[node name="StaticBody2D2" parent="." unique_id=1080932380 instance=ExtResource("4_fos0i")]
+
+[node name="RuleMgr" type="Node2D" parent="." unique_id=1576521383 node_paths=PackedStringArray("player")]
+script = ExtResource("4_cm0pq")
+player = NodePath("../Player")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=217537608 node_paths=PackedStringArray("player")]
+position = Vector2(-548, -207)
+amount = 25
+sub_emitter = NodePath(".")
+lifetime = 5.0
+preprocess = 2.0
+randomness = 1.0
+fixed_fps = 40
+trail_enabled = true
+trail_lifetime = 0.6
+process_material = ExtResource("8_trn2v")
+script = ExtResource("9_03owx")
+player = NodePath("../Player")
+
+[node name="hud" type="CanvasLayer" parent="." unique_id=1036196696]
+script = ExtResource("10_wkp8b")
